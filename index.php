@@ -1,5 +1,5 @@
 ﻿<?php
-	$db = new PDO("sqlite:/home/cbdev/dev/wahlbocks/wahl.db3");
+	$db = new PDO("sqlite:wahl.db3");
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	$db->query("PRAGMA foreign_keys = ON");
 
