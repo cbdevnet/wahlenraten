@@ -1,0 +1,70 @@
+body, html {
+	margin:0;
+	padding:0;
+}
+
+html {
+	width:100%;
+}
+
+h1, #welcome {
+	padding:0.5em;
+	margin:0;
+	display:inline-block;
+	max-width:50%
+}
+
+#topbar {
+	width:100%;
+	background-color:#333;
+	color:#ccc;
+}
+
+#sliders, #submit {
+	margin:0 auto;
+	width:50%;
+	text-align:center;
+	position:relative;
+}
+
+#submit {
+	padding:2em;
+	background-color:#aaa;
+}
+
+div.option {
+	background-color:#cca;
+	padding:2em;
+	margin-bottom:0.1em;
+}
+
+#name-input {
+	font-weight:bold;
+}
+
+span.option-name {
+	display:inline-block;
+	font-weight:bold;
+	width:49%;
+	min-width:15em;
+	text-align:left;
+}
+
+input.slider {
+	width:49%;
+	min-width:15em;
+}
+
+@media (max-width: 1024px) {
+	#sliders, #submit {
+		width:100%;
+	}	
+}
+
+@media (max-width: 35em) {
+	span.option-name, input.slider, #submit {
+		width:100%;
+		min-width:0;
+		text-align:center;
+	}
+}
