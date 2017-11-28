@@ -58,7 +58,9 @@
 					foreach($options->fetchAll(PDO::FETCH_ASSOC) as $opt){
 						?>
 							<div id="slider-<?= $opt["id"] ?>" class="option">
-								<span class="option-name"><?= $opt["option"] ?></span> <input id="option-<?= $opt["id"] ?>" type ="range" min="0" max="<?= $pollinfo["total"] ?>" step="0.1" value="<?= $opt["def"] ?>" class="slider" />
+								<span class="option-name"><?= $opt["option"] ?></span>
+								<span class="option-value">CCCC</span>
+								<input id="option-<?= $opt["id"] ?>" type ="range" min="0" max="<?= $pollinfo["total"] ?>" step="0.1" value="<?= $opt["def"] ?>" class="slider" />
 							</div>
 						<?php
 					}
