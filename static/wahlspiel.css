@@ -31,6 +31,15 @@ h1, #welcome {
 	text-align:center;
 }
 
+#reset {
+	display:none;
+	text-align:center;
+	padding:1em;
+	text-decoration:none;
+	background-color:#555;
+	color:#ccc;
+}
+
 span.option-value {
 	min-width:3em;
 	display:inline-block;

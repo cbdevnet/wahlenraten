@@ -59,6 +59,7 @@
 				angepasst werden.
 			</div>
 		</noscript>
+		<a href="#" id="reset" onclick="wahlspiel.reset();">Alles zur&uuml;cksetzen</a>
 		<form action="" method="post">
 			<div id="sliders">
 				<?php
@@ -71,7 +72,7 @@
 									min="0" max="<?= $pollinfo["total"] ?>"
 									step="0.1" value="<?= $opt["def"] ?>"
 									class="slider"
-									data-default="<?= $opt["def"] ?>" />
+									data-initial="<?= $opt["def"] ?>" />
 							</div>
 						<?php
 					}
