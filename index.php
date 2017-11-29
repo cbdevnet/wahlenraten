@@ -3,38 +3,36 @@
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	$db->query("PRAGMA foreign_keys = ON");
 
-	if(!isset($_GET["p"]) || empty($_GET["p"])){
-		die("No poll"); //might want to output overview page here
-	}
-	else{
+	if(isset($_GET["p"]) && !empty($_GET["p"])){
 		try{
 			$poll = $db->prepare("SELECT id, total, fullname FROM polls WHERE [name] = :short;");
 			$options = $db->prepare("SELECT id, option, def FROM options WHERE poll = :pollid ORDER BY [order] ASC, option ASC;");
 		}
 		catch(PDOException $e){
-			die("Failed to prepare database statements: " . $e->getMessage());
+			$error = "Vorbereitung der Datenbankabfragen schlug fehl: " . $e->getMessage();
 		}
 
 		if(!$poll->execute(array($_GET["p"]))){
-			die("Poll info failed");
+			$error = "Konnte Abfrage zur Abstimmung nicht ausfuehren.";
 		}
 
 		$pollinfo = $poll->fetch(PDO::FETCH_ASSOC);
 		if(!$pollinfo){
-			die("No such poll");
+			$error = "Die angefragte Abstimmung ist in der Datenbank nicht auffindbar";
 		}
 
 		if(!$options->execute(array($pollinfo["id"]))){
-			die("Failed to fetch options");
+			$error = "Konnte Abfrage zu den Abstimmungsoptionen nicht ausfuehren.";
 		}
-
 	}
-
+	else{
+		$error = TRUE;
+	}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title>Zahlenraten Deluxe</title>
+		<title>Das Wahlspiel</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<link rel="icon" href="static/favicon.svg" type="image/svg" />
 		<link rel="shortcut icon" href="static/favicon.svg" type="image/svg" />
@@ -45,6 +43,9 @@
 		<script type="text/javascript" src="static/wahlspiel.js"></script>
 	</head>
 	<body onload="wahlspiel.init();">
+	<?php
+		if(!isset($error)){
+	?>
 		<div id="topbar">
 			<h1>Tippspiel <?= $pollinfo["fullname"] ?></h1>
 			<div id="welcome">
@@ -53,7 +54,7 @@
 			</div>
 		</div>
 		<noscript>
-			<div id="script-warning">
+			<div id="warning">
 				Diese Seite funktioniert mit JavaScript um einiges besser, da die Slider dann automatisch
 				angepasst werden.
 			</div>
@@ -63,10 +64,14 @@
 				<?php
 					foreach($options->fetchAll(PDO::FETCH_ASSOC) as $opt){
 						?>
-							<div id="slider-<?= $opt["id"] ?>" class="option">
+							<div class="option">
 								<span class="option-name"><?= $opt["option"] ?></span>
 								<span class="option-value"></span>
-								<input id="option-<?= $opt["id"] ?>" type ="range" min="0" max="<?= $pollinfo["total"] ?>" step="0.1" value="<?= $opt["def"] ?>" class="slider" />
+								<input name="option-<?= $opt["id"] ?>" type ="range"
+									min="0" max="<?= $pollinfo["total"] ?>"
+									step="0.1" value="<?= $opt["def"] ?>"
+									class="slider"
+									data-default="<?= $opt["def"] ?>" />
 							</div>
 						<?php
 					}
@@ -76,5 +81,33 @@
 				<span id="name-input">Dein Name:</span> <input type="text" name="submitter" /> <input type="submit" name="tip" value="Abstimmen" />
 			</div>
 		</form>
+	<?php
+		}
+		else if($error === TRUE){
+		//welcome page
+	?>
+		<div id="topbar">
+			<h1>Das Wahltippsiel</h1>
+			<div id="welcome">
+				Gib deinen Tip auf den Ausgang von Wahlen und Abstimmungen ab und vergleiche deine Prognose mit der von anderen.
+			</div>
+		</div>
+	<?php
+		}
+		else{
+	?>
+		<div id="topbar">
+			<h1>Das Wahltippsiel</h1>
+			<div id="welcome">
+				Gib deinen Tip auf den Ausgang von Wahlen und Abstimmungen ab und vergleiche deine Prognose mit der von anderen.
+			</div>
+		</div>
+		<div id="warning">
+			Bei der Bearbeitung deiner Anfrage ist leider ein Fehler aufgetreten:<br/>
+			<?= $error ?>
+		</div>
+	<?php
+		}
+	?>
 	</body>
 </html>
