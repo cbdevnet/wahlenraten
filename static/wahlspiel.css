@@ -22,6 +22,15 @@ h1, #welcome {
 	border-bottom:0.2em solid #aee;
 }
 
+#script-warning {
+	width:80%;
+	padding:2em;
+	border:1em solid #f00;
+	margin:1em auto;
+	background-color:#cee;
+	text-align:center;
+}
+
 #sliders, #submit {
 	margin:0 auto;
 	width:50%;

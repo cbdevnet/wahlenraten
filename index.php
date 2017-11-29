@@ -39,19 +39,25 @@
 		<link rel="icon" href="static/favicon.svg" type="image/svg" />
 		<link rel="shortcut icon" href="static/favicon.svg" type="image/svg" />
 		<link rel="stylesheet" type="text/css" href="static/wahlspiel.css" />
-		<meta name="description" content="Gib deinen Tipp auf das Ergebnis von <?php print($pollinfo["fullname"]); ?> ab." />
+		<meta name="description" content="Gib deinen Tipp auf das Ergebnis von <?= $pollinfo["fullname"] ?> ab." />
 		<meta name="robots" content="index,follow" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<script type="text/javascript" src="static/wahlspiel.js"></script>
 	</head>
-	<body>
+	<body onload="wahlspiel.init();">
 		<div id="topbar">
-			<h1>Tippspiel <?php printf($pollinfo["fullname"]); ?></h1>
+			<h1>Tippspiel <?= $pollinfo["fullname"] ?></h1>
 			<div id="welcome">
-				Gib deinen Tip ab, indem du die Slider unten auf dein prognostiziertes Ergebnis
-				einstellst.
+				Gib deinen Tip ab, indem du die Slider unten auf dein prognostiziertes Ergebnis einstellst.
 				Gib deinen Namen ein und klicke auf "Abgeben", um dich in die Liste einzutragen.
 			</div>
 		</div>
+		<noscript>
+			<div id="script-warning">
+				Diese Seite funktioniert mit JavaScript um einiges besser, da die Slider dann automatisch
+				angepasst werden.
+			</div>
+		</noscript>
 		<form action="" method="post">
 			<div id="sliders">
 				<?php
@@ -59,7 +65,7 @@
 						?>
 							<div id="slider-<?= $opt["id"] ?>" class="option">
 								<span class="option-name"><?= $opt["option"] ?></span>
-								<span class="option-value">CCCC</span>
+								<span class="option-value"></span>
 								<input id="option-<?= $opt["id"] ?>" type ="range" min="0" max="<?= $pollinfo["total"] ?>" step="0.1" value="<?= $opt["def"] ?>" class="slider" />
 							</div>
 						<?php
