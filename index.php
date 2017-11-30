@@ -45,7 +45,7 @@
 					}
 				}
 			}
-			header("Location: result.php?p=" . urlencode($_GET["p"]));
+			header("Location: results.php?p=" . urlencode($_GET["p"]));
 			die();
 		}
 	}
@@ -56,7 +56,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title>Das Wahlspiel</title>
+	<title>Wahlspiel <?= $pollinfo["fullname"] ?></title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<link rel="icon" href="static/favicon.svg" type="image/svg" />
 		<link rel="shortcut icon" href="static/favicon.svg" type="image/svg" />
@@ -116,7 +116,7 @@
 		//welcome page
 	?>
 		<div id="topbar">
-			<h1>Das Wahltippsiel</h1>
+			<h1>Das Wahltippspiel</h1>
 			<div id="welcome">
 				Gib deinen Tip auf den Ausgang von Wahlen und Abstimmungen ab und vergleiche deine Prognose mit der von anderen.
 			</div>
@@ -126,7 +126,7 @@
 		else{
 	?>
 		<div id="topbar">
-			<h1>Das Wahltippsiel</h1>
+			<h1>Das Wahltippspiel</h1>
 			<div id="welcome">
 				Gib deinen Tip auf den Ausgang von Wahlen und Abstimmungen ab und vergleiche deine Prognose mit der von anderen.
 			</div>

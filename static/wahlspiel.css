@@ -52,6 +52,18 @@ span.option-value {
 	position:relative;
 }
 
+#results {
+	width:80%;
+	margin:0 auto;
+	background-color:#cca;
+	padding:1em;
+	text-align:left;
+}
+
+#result-table {
+	width:100%;
+}
+
 #submit {
 	padding:2em;
 	background-color:#aaa;
@@ -85,12 +97,16 @@ input.slider {
 		text-align:center;
 	}
 
-	#sliders {
+	#sliders{
 		width:100%;
 	}
 
-	h1, #welcome, #submit {
+	h1, #welcome, #submit{
 		max-width:inherit;
+	}
+
+	#results{
+		width:inherit;
 	}
 }
 
