@@ -38,7 +38,7 @@ var wahlspiel = {
 	updateDisplay:function(e){
 		var slider = e.getElementsByClassName("slider")[0];
 		var display = e.getElementsByClassName("option-value")[0];
-		display.textContent = Math.round((parseFloat(slider.value) / parseFloat(slider.max)) * 10000) / 100 + "%";
+		display.textContent = slider.value + " " + stepUnit;
 	},
 
 	balance:function(){
