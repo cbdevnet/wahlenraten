@@ -36,7 +36,12 @@
 		die();
 	}
 
+	$opts = array();
 	$rows = array();
+	
+	for($pick = $results[0]["id"], $i = 0; $pick == $results[$i]["id"] && $i < sizeof($results); $i++){
+		$opts[] = $results[$i]["opt"];
+	}
 
 	//preprocess pick data
 	foreach($results as $entry){
@@ -45,7 +50,22 @@
 		$rows[$entry["id"]]["options"][] = $entry["result"];
 	}
 
-	//TODO css export
+	if(isset($_GET["csv"])){
+		header("Content-Type: text");
+		print("name,timestamp");
+		foreach($opts as $opt){
+			print("," . urlencode($opt));
+		}
+		print("\n");
+		foreach($rows as $row){
+			print($row["name"] . "," . $row["timestamp"]);
+			foreach($row["options"] as $tip){
+				print("," . $tip);
+			}
+			print("\n");
+		}
+		die();
+	}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -75,9 +95,8 @@
 					<th>Einsender</th>
 					<th>Zeitpunkt</th>
 					<?php
-						//FIXME this is ugly
-						for($pick = $results[0]["id"], $i = 0; $pick == $results[$i]["id"] && $i < sizeof($results); $i++){
-							print("<th>".$results[$i]["opt"]."</th>");
+						foreach($opts as $opt){
+							print("<th>" . $opt . "</th>");
 						}
 					?>
 				</tr>
@@ -89,7 +108,7 @@
 								<td><?= $row["timestamp"] ?></td>
 								<?php
 									foreach($row["options"] as $tip){
-										print("<td>".$tip."</td>");
+										print("<td>" . $tip . "</td>");
 									}
 								?>
 							</tr>
