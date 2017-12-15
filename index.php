@@ -138,5 +138,8 @@
 	<?php
 		}
 	?>
+	<div id="footer">
+		Das Wahltippspiel <a href="https://github.com/cbdevnet/wahlenraten/">auf GitHub</a>
+	</div>
 	</body>
 </html>

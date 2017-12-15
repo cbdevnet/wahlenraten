@@ -40,6 +40,14 @@ h1, #welcome {
 	color:#ccc;
 }
 
+#footer{
+	color:#333;
+	text-align:right;
+	margin-top:2em;
+	padding:0.5em;
+	background-color:#aaa;
+}
+
 span.option-value {
 	min-width:3em;
 	display:inline-block;
